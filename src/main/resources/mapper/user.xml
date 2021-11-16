@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.happyhouse.user.model.mapper.UserMapper">
+
+	<resultMap type="User" id="UserResultMap">
+		<id column="id" property="userId"/>
+		<result column="pw" property="userPw"/>
+		<result column="username" property="userName"/>
+		<result column="address" property="userAddress"/>
+		<result column="tel" property="userTel"/>
+	</resultMap>
+	
+	<select id="selectUserId" parameterType="string" resultMap="UserResultMap">
+		select id, pw, username, address, tel 
+		from userinfo 
+		where id = #{id}
+	</select>
+	
+	<insert id="insertUser" parameterType="User">
+		insert into userinfo (id, pw, username, address, tel) 
+		values (#{userId}, #{userPw}, #{userName}, #{userAddress}, #{userTel})
+	</insert>
+	
+	<select id="selectUser" parameterType="User" resultMap="UserResultMap">
+		select id, pw, username, address, tel 
+		from userinfo 
+		where id = #{userId} and pw = #{userPw}
+	</select>
+	
+	<update id="updateUser" parameterType="User">
+		update userinfo 
+		set pw = #{userPw}, username = #{userName}, address = #{userAddress}, tel = #{userTel} 
+		where id = #{userId}
+	</update>
+	
+	<delete id="deleteUser" parameterType="string">
+		delete from userinfo 
+		where id = #{id}
+	</delete>
+	
+</mapper>
