@@ -33,6 +33,7 @@
           <li><a href="#">오늘의 뉴스</a></li>
           <li><a href="#">관심지역 설정</a></li>
           <li><a href="#">관심지역 살펴보기</a></li>
+          <li><a href="http://localhost:8080/qna">Q&A</a></li>
         </ul>
       </nav><!-- .nav-menu -->
   
