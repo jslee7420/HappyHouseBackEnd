@@ -14,7 +14,7 @@
 	</resultMap>
 	
 	<select id="selectUserId" parameterType="string" resultMap="UserResultMap">
-		select id, pw, username, address, tel 
+		select id
 		from userinfo 
 		where id = #{id}
 	</select>
@@ -25,7 +25,7 @@
 	</insert>
 	
 	<select id="selectUser" parameterType="User" resultMap="UserResultMap">
-		select id, pw, username, address, tel 
+		select id, username, address, tel 
 		from userinfo 
 		where id = #{userId} and pw = #{userPw}
 	</select>

@@ -1,10 +1,12 @@
 package com.ssafy.happyhouse.user.controller;
 
 import java.net.URI;
+import java.util.HashMap;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ssafy.happyhouse.config.security.JwtTokenProvider;
+import com.ssafy.happyhouse.jwt.JwtService;
 import com.ssafy.happyhouse.user.model.dto.User;
 import com.ssafy.happyhouse.user.model.service.UserService;
 
@@ -27,8 +29,10 @@ import com.ssafy.happyhouse.user.model.service.UserService;
 @CrossOrigin("*")
 public class UserContorller{
 	
+	public static final Logger logger = LoggerFactory.getLogger(UserContorller.class);
+	
 	@Autowired
-	private JwtTokenProvider jwtTokenProvider;
+	private JwtService jwtService;
 	
 	@Autowired
 	private UserService userService;
@@ -96,16 +100,19 @@ public class UserContorller{
     }
 	
 	@PostMapping("/login")
-	public ResponseEntity<Object> userLogin(@RequestBody User user, HttpSession session, HttpServletResponse response) throws Exception {
+	public ResponseEntity<Object> userLogin(@RequestBody User user) throws Exception {
         // 유저 존재 확인
         User signedUser = userService.loginUser(user);
         if(signedUser == null) {
         	return ResponseEntity.badRequest().build();
         }
-        session.setAttribute("userInfo", signedUser);
-        session.setMaxInactiveInterval(30);
+        String token = jwtService.create("userid", signedUser.getUserId(), "access-token");// key, data, subject
+
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("userInfo", signedUser);
+        map.put("access-token", token);
         
-        return ResponseEntity.ok("로그인 성공!");
+        return ResponseEntity.ok().body(map);
 	}
 	
 	@PostMapping("/logout")
@@ -122,19 +129,6 @@ public class UserContorller{
 		}
         return ResponseEntity.ok(user);
     } 
-	
-//	@PostMapping("/login")
-//	public ResponseEntity<Object> login(@RequestBody User user, HttpServletResponse response) throws Exception {
-//		// 유저 존재 확인
-//		User signedUser = userService.login(user);
-//		if(signedUser == null) {
-//			return ResponseEntity.badRequest().build();
-//		}
-//		// 토큰 생성 및 응답
-//		String token = jwtTokenProvider.createToken(user.getUserId(), user.getRoles());
-//		response.setHeader("authorization", "bearer " + token);
-//		return ResponseEntity.ok("로그인 성공!");
-//	}
 	
 	@GetMapping("/login")
 	public String login() {
