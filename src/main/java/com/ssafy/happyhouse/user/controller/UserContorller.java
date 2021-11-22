@@ -146,7 +146,7 @@ public class UserContorller{
 		
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
-			if(userService.checkUserId(id) == null) {
+			if(!id.equals(bookmark.getUserId()) || userService.checkUserId(id) == null) {
 				map.put("message", "fail");
 				return ResponseEntity.ok(map);
 			}
@@ -166,7 +166,7 @@ public class UserContorller{
 		
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
-			if(userService.checkUserId(id) == null) {
+			if(!id.equals(bookmark.getUserId()) || userService.checkUserId(id) == null) {
 				map.put("message", "fail");
 				return ResponseEntity.ok(map);
 			}

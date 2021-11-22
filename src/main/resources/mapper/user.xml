@@ -52,7 +52,7 @@
 	</delete>
 	
 	<insert id="insertBookmark" parameterType="Bookmark">
-		insert into bookmark (user_id, aptCode) 
+		insert ignore into bookmark (user_id, aptCode) 
 		values (#{userId}, #{aptCode})
 	</insert>
 	
