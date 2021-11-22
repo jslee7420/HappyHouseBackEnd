@@ -13,6 +13,12 @@
 		<result column="tel" property="userTel"/>
 	</resultMap>
 	
+	<resultMap type="Bookmark" id="BookmarkResultMap">
+		<id column="bookmark_id" property="bookmarkId"/>
+		<result column="user_id" property="userId"/>
+		<result column="aptCode" property="aptCode"/>
+	</resultMap>
+	
 	<select id="selectUserId" parameterType="string" resultMap="UserResultMap">
 		select id
 		from userinfo 
@@ -32,13 +38,33 @@
 	
 	<update id="updateUser" parameterType="User">
 		update userinfo 
-		set pw = #{userPw}, username = #{userName}, address = #{userAddress}, tel = #{userTel} 
+		set 
+		<if test="userPw">
+			pw = #{userPw}, 
+		</if>
+		username = #{userName}, address = #{userAddress}, tel = #{userTel} 
 		where id = #{userId}
 	</update>
 	
 	<delete id="deleteUser" parameterType="string">
 		delete from userinfo 
 		where id = #{id}
+	</delete>
+	
+	<insert id="insertBookmark" parameterType="Bookmark">
+		insert into bookmark (user_id, aptCode) 
+		values (#{userId}, #{aptCode})
+	</insert>
+	
+	<select id="selectBookmarkList" parameterType="String" resultMap="BookmarkResultMap">
+		select bookmark_id, user_id, aptCode
+		from bookmark 
+		where user_id = #{userId}
+	</select>
+	
+	<delete id="deleteBookmark">
+		delete from bookmark
+		where user_Id = #{userId} and aptCode = #{aptCode}
 	</delete>
 	
 </mapper>

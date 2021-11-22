@@ -1,7 +1,9 @@
 package com.ssafy.happyhouse.user.model.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import com.ssafy.happyhouse.user.model.dto.Bookmark;
 import com.ssafy.happyhouse.user.model.dto.User;
 
 public interface UserService {
@@ -11,5 +13,9 @@ public interface UserService {
 	void modifyUser(User user) throws SQLException;
 	void removeUser(String userId) throws SQLException;
 	User loginUser(User user) throws SQLException;
+	
+	void addBookmark(Bookmark bookmark);
+	List<Bookmark> findBookmarkList(String userId);
+	void removeBookmark(Bookmark bookmark);
 
 }
