@@ -160,17 +160,17 @@ public class UserContorller{
 		}
 	} 
 	
-	@DeleteMapping("/{id}/bookmark")
-	public ResponseEntity<Object> bookmarkRemove(@PathVariable String id, @RequestBody Bookmark bookmark, HttpServletRequest request) throws Exception{
+	@DeleteMapping("/{id}/bookmark/{bookmarkId}")
+	public ResponseEntity<Object> bookmarkRemove(@PathVariable String id, @PathVariable String bookmarkId, HttpServletRequest request) throws Exception{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
-			if(!id.equals(bookmark.getUserId()) || userService.checkUserId(id) == null) {
+			if(userService.checkUserId(id) == null) {
 				map.put("message", "fail");
 				return ResponseEntity.ok(map);
 			}
-			userService.removeBookmark(bookmark);
+			userService.removeBookmark(bookmarkId);
 			map.put("message", "success");
 			return ResponseEntity.ok(map);
 			

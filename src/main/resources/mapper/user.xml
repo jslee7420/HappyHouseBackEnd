@@ -62,9 +62,9 @@
 		where user_id = #{userId}
 	</select>
 	
-	<delete id="deleteBookmark">
+	<delete id="deleteBookmark" parameterType="String">
 		delete from bookmark
-		where user_Id = #{userId} and aptCode = #{aptCode}
+		where bookmark_id = #{bookmarkId}
 	</delete>
 	
 </mapper>
