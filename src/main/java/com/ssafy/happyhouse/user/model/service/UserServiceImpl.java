@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void removeBookmark(Bookmark bookmark) {
-		userMapper.deleteBookmark(bookmark);
+	public void removeBookmark(String bookmarkId) {
+		userMapper.deleteBookmark(bookmarkId);
 	}
 }

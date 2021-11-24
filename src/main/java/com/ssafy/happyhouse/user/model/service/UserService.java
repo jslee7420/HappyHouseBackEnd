@@ -16,6 +16,6 @@ public interface UserService {
 	
 	void addBookmark(Bookmark bookmark);
 	List<Bookmark> findBookmarkList(String userId);
-	void removeBookmark(Bookmark bookmark);
+	void removeBookmark(String bookmarkId);
 
 }

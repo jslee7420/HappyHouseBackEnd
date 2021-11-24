@@ -20,6 +20,6 @@ public interface UserMapper {
 	
 	void insertBookmark(Bookmark bookmark);
 	List<Bookmark> selectBookmarkList(String userId);
-	void deleteBookmark(Bookmark bookmark);
+	void deleteBookmark(String bookmarkId);
 
 }
