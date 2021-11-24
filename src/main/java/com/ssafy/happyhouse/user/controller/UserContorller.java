@@ -124,7 +124,7 @@ public class UserContorller{
 	@GetMapping("/{id}/bookmark")
 	public ResponseEntity<Object> bookmarkList(@PathVariable String id, HttpServletRequest request) throws Exception{
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
+		System.out.println("getMapping Called");
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
 			if(userService.checkUserId(id) == null) {
@@ -163,7 +163,7 @@ public class UserContorller{
 	@DeleteMapping("/{id}/bookmark")
 	public ResponseEntity<Object> bookmarkRemove(@PathVariable String id, @RequestBody Bookmark bookmark, HttpServletRequest request) throws Exception{
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
+		System.out.println("deleteMapping Called");
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
 			if(!id.equals(bookmark.getUserId()) || userService.checkUserId(id) == null) {
