@@ -5,7 +5,7 @@
 <mapper namespace="com.ssafy.happyhouse.dealTrend.model.mapper.DealTrendMapper">
 
 	<resultMap type="DealTrend" id="DealTrendResultMap">
-		<id column="gugunName" property="gugunName"/>
+		<id column="district" property="district"/>
 		<collection property="quarterlyDealVolume" resultMap="QuarterlyDealVolumeResultMap"/>
 		<collection property="quarterlyAveragePricePerPyeong" resultMap="QuarterlyAveragePricePerPyeongResultMap"/>
 	</resultMap>
@@ -25,13 +25,15 @@
 	</resultMap>
 	
 	<select id="selectDealTrendList" resultMap="DealTrendResultMap">
-		select g.gugunName,
+		select concat(si.sidoName, " " ,gu.gugunName) district,
 			first_quarter_deal_volume, second_quarter_deal_volume, third_quarter_deal_volume, fourth_quarter_deal_volume,
 			first_quarter_average_price_per_pyeong, second_quarter_average_price_per_pyeong, 
 			third_quarter_average_price_per_pyeong, fourth_quarter_average_price_per_pyeong
 		from deal_trends_by_district d
-		left join guguncode g
-		on d.gugunCode = g.gugunCode
+		left join sidocode si
+		on left(d.gugunCode,2) = left(si.sidocode,2)
+		left join guguncode gu
+		on d.gugunCode = gu.gugunCode
 	</select>
 
 </mapper>

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class DealTrend {
 	
-	private String gugunName;
+	private String district;
 	private QuarterlyDealVolume quarterlyDealVolume;
 	private QuarterlyAveragePricePerPyeong quarterlyAveragePricePerPyeong;
 	

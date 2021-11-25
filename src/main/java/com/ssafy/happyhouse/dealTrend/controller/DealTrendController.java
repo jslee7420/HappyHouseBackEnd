@@ -28,7 +28,7 @@ public class DealTrendController {
 	@GetMapping()
 	public ResponseEntity<Object> dealTrendFind() throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("dealTrend", dealTrendService.findDealTrend());
+		map.put("dealTrends", dealTrendService.findDealTrend());
 		map.put("message", "success");
 		return ResponseEntity.ok(map);
 	}
