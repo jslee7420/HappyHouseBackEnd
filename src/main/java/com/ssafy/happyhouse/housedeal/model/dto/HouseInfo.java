@@ -18,6 +18,6 @@ public class HouseInfo {
 	private String lng;
 	private String img;
 	private String recentPrice;
-	
+	private int pricePerPyeong; 
 	
 }

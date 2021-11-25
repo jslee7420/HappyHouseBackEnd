@@ -49,6 +49,9 @@ public class HouseDealController {
 		if(houseDealService.findAptInDong(houseInfo).size()==0) {
 			return ResponseEntity.notFound().build();
 		}
+		
+		System.out.println(houseDealService.findAptInDong(houseInfo).get(0).getPricePerPyeong());
+		
 		return new ResponseEntity<List<HouseInfo>>(houseDealService.findAptInDong(houseInfo), HttpStatus.OK);
 	}
 	

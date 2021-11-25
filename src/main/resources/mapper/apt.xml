@@ -6,12 +6,15 @@
  
 	<select id="selectAptInDong" parameterType="houseInfo" resultType="houseInfo">
 		select h.aptCode, h.aptName, h.buildyear, h.dongCode, h.dongName, h.jibun, h.lat, h.lng, si.sidoname, gu.gugunname,
-				(select dealAmount from housedeal where aptCode = h.aptCode and no = (select max(no) from housedeal where aptCode = h.aptCode)) recentPrice
+				(select dealAmount from housedeal where aptCode = h.aptCode and no = (select max(no) from housedeal where aptCode = h.aptCode)) recentPrice,
+				(select price_per_pyeong from prices_per_pyeong where aptCode = h.aptCode) pricePerPyeong
 		from houseinfo h
 		left join sidocode si
 		on left(h.dongcode,2) = left(si.sidocode,2)
 		left join guguncode gu
 		on left(h.dongcode,5) = left(gu.guguncode,5)
+		left join prices_per_pyeong ppp
+		on h.aptCode = ppp.aptCode
 		where dongCode = #{dongCode} 
 		<choose>
 			<when test="buildYear == 1">
@@ -44,4 +47,5 @@
 		where aptCode = #{aptCode}
 		order by dealYear desc, dealMonth desc, dealDay desc
 	</select>
+	
 </mapper>

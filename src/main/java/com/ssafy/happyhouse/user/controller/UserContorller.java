@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.jwt.JwtService;
 import com.ssafy.happyhouse.user.model.dto.Bookmark;
 import com.ssafy.happyhouse.user.model.dto.User;
 import com.ssafy.happyhouse.user.model.service.UserService;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 @CrossOrigin("*")
 public class UserContorller{
@@ -179,44 +179,5 @@ public class UserContorller{
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 	} 
-	
-//	@GetMapping("/login/check")
-//	public ResponseEntity<Object> userLoginCheck(HttpSession session) throws Exception {
-//		if(session.getAttribute("userInfo") != null) {
-//            return ResponseEntity.ok().build();
-//        }
-//        return ResponseEntity.noContent().build();
-//    }
-	
-	
-//	@PostMapping("/logout")
-//	public ResponseEntity<Object> userLogout(HttpSession session) throws Exception {
-//        session.invalidate();
-//        return ResponseEntity.ok().build();
-//    }
-//	
-//	@GetMapping()
-//	public ResponseEntity<Object> userDetail(HttpSession session) throws Exception {
-//		User user = (User) session.getAttribute("userInfo");
-//		if(user == null) {
-//			return ResponseEntity.badRequest().build();
-//		}
-//        return ResponseEntity.ok(user);
-//    } 
-	
-//	@GetMapping("/login")
-//	public String login() {
-//		return "login";
-//	}
-//	
-//	@GetMapping("/join")
-//	public String join() {
-//		return "user_join";
-//	}
-//	
-//	@GetMapping("/profile")
-//	public String profile() {
-//		return "user_profile";
-//	}
 	
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.dealTrend.model.mapper.DealTrendMapper">
+
+	<resultMap type="DealTrend" id="DealTrendResultMap">
+		<id column="gugunName" property="gugunName"/>
+		<collection property="quarterlyDealVolume" resultMap="QuarterlyDealVolumeResultMap"/>
+		<collection property="quarterlyAveragePricePerPyeong" resultMap="QuarterlyAveragePricePerPyeongResultMap"/>
+	</resultMap>
+	
+	<resultMap type="QuarterlyDealVolume" id="QuarterlyDealVolumeResultMap">
+		<result column="first_quarter_deal_volume" property="firstQuarterDealVolume"/>
+		<result column="second_quarter_deal_volume" property="secondQuarterDealVolume"/>
+		<result column="third_quarter_deal_volume" property="thirdQuarterDealVolume"/>
+		<result column="fourth_quarter_deal_volume" property="fourthQuarterDealVolume"/>
+	</resultMap>
+	
+	<resultMap type="QuarterlyAveragePricePerPyeong" id="QuarterlyAveragePricePerPyeongResultMap">
+		<result column="first_quarter_average_price_per_pyeong" property="firstQuarterAveragePricePerPyeong"/>
+		<result column="second_quarter_average_price_per_pyeong" property="secondQuarterAveragePricePerPyeong"/>
+		<result column="third_quarter_average_price_per_pyeong" property="thirdQuarterAveragePricePerPyeong"/>
+		<result column="fourth_quarter_average_price_per_pyeong" property="fourthQuarterAveragePricePerPyeong"/>
+	</resultMap>
+	
+	<select id="selectDealTrendList" resultMap="DealTrendResultMap">
+		select g.gugunName,
+			first_quarter_deal_volume, second_quarter_deal_volume, third_quarter_deal_volume, fourth_quarter_deal_volume,
+			first_quarter_average_price_per_pyeong, second_quarter_average_price_per_pyeong, 
+			third_quarter_average_price_per_pyeong, fourth_quarter_average_price_per_pyeong
+		from deal_trends_by_district d
+		left join guguncode g
+		on d.gugunCode = g.gugunCode
+	</select>
+
+</mapper>
