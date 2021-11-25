@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ssafy.happyhouse.housedeal.model.mapper.HouseDealMapper">
  
-	<select id="selectAptInDong" parameterType="string" resultType="houseInfo">
+	<select id="selectAptInDong" parameterType="houseInfo" resultType="houseInfo">
 		select h.aptCode, h.aptName, h.buildyear, h.dongCode, h.dongName, h.jibun, h.lat, h.lng, si.sidoname, gu.gugunname,
 				(select dealAmount from housedeal where aptCode = h.aptCode and no = (select max(no) from housedeal where aptCode = h.aptCode)) recentPrice
 		from houseinfo h
@@ -12,7 +12,29 @@
 		on left(h.dongcode,2) = left(si.sidocode,2)
 		left join guguncode gu
 		on left(h.dongcode,5) = left(gu.guguncode,5)
-		where dongCode = #{dong} 
+		where dongCode = #{dongCode} 
+		<choose>
+			<when test="buildYear == 1">
+				<![CDATA[  and buildYear >= (SELECT YEAR(CURDATE())) - 5 ]]> 
+			</when>
+			<when test="buildYear == 2">
+				<![CDATA[  and buildYear < (SELECT YEAR(CURDATE())) - 5 ]]> 
+			</when>
+		</choose>
+		order by aptName
+	</select>
+	
+	<select id="selectAptByBookmark" parameterType="string" resultType="houseInfo">
+		select h.aptCode, h.aptName, h.buildyear, h.dongCode, h.dongName, h.jibun, h.lat, h.lng, si.sidoname, gu.gugunname,
+				(select dealAmount from housedeal where aptCode = h.aptCode and no = (select max(no) from housedeal where aptCode = h.aptCode)) recentPrice
+		from houseinfo h
+		left join bookmark b
+		on h.aptCode = b.aptCode
+		left join sidocode si
+		on left(h.dongcode,2) = left(si.sidocode,2)
+		left join guguncode gu
+		on left(h.dongcode,5) = left(gu.guguncode,5)
+		where b.user_id = #{userId} 
 		order by aptName
 	</select>
 	

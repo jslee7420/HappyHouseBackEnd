@@ -10,7 +10,8 @@ import com.ssafy.happyhouse.housedeal.model.dto.HouseInfo;
 @Mapper
 public interface HouseDealMapper {
 	
-	List<HouseInfo> selectAptInDong(String dong);
+	List<HouseInfo> selectAptInDong(HouseInfo houseInfo);
 	List<HouseDeal> selectDealsByAptCode(int aptCode);
+	List<HouseInfo> selectAptByBookmark(String userId);
 	
 }

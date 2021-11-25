@@ -20,13 +20,18 @@ public class HouseDealServiceImpl implements HouseDealService {
 	}
 
 	@Override
-	public List<HouseInfo> findAptInDong(String dong) throws Exception {
-		return houseDealMapper.selectAptInDong(dong);
+	public List<HouseInfo> findAptInDong(HouseInfo houseInfo) throws Exception {
+		return houseDealMapper.selectAptInDong(houseInfo);
 	}
 
 	@Override
 	public List<HouseDeal> findDealsByAptCode(int aptCode) throws Exception {
 		return houseDealMapper.selectDealsByAptCode(aptCode);
+	}
+
+	@Override
+	public List<HouseInfo> findAptByBookmark(String userId) throws Exception {
+		return houseDealMapper.selectAptByBookmark(userId);
 	}
 
 }
